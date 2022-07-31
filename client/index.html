@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Homework Tracker</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Assignment Tracker</h1>
+        <button>Clear Homework</button>
+    </header>
+
+    <main>
+        <div class="inputs-container">
+            <section class="lectures">
+                <h2>Lectures</h2>
+                <form class="lecture-form">
+                    <label for="lecture-name">Lecture Name</label>
+                    <input type="text" name="lecture-name" id="lecture-name" class="lecture-name"
+                        placeholder="enter lecture name">
+                    <label for="lecture-length">Lecture Length</label>
+                    <input type="number" name="lecture-length" id="lecture-length" class="lecture-length"
+                        placeholder="number in hours">
+                    <button id="lec-btn" type="submit">Submit</button>
+                </form>
+            </section>
+
+            <section class="labs">
+                <h2>Labs</h2>
+                <form class="lab-form">
+                    <label for="lab-name">Lab Name</label>
+                    <input type="text" name="lab-name" id="lab-name" placeholder="enter lab name">
+                    <label for="lab-length">Lab Length</label>
+                    <input type="number" name="lab-length" id="lab-length" placeholder="number in hours">
+                    <button id="lab-btn" type="submit">Submit</button>
+                </form>
+            </section>
+        </div>
+
+        <div class="tracker-container">
+            <section class="lectures-todo-section">
+                <h3>Lectures:</h3>
+                <ul class="lectures-todo-container">
+                </ul>
+            </section>
+            <section class="lab-todo-section">
+                <h3>Labs:</h3>
+                <ul class="lab-todo-container">
+                </ul>
+            </section>
+        </div>
+
+    </main>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
