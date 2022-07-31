@@ -1,6 +1,8 @@
 
-const lectureNameInput = document.querySelector('.lecture-name');
+const lectureNameInput = document.querySelector('.lecture-name')
 const lectureLengthInput = document.querySelector('.lecture-length');
+
+
 const labNameInput = document.querySelector('#lab-name');
 const labLengthInput = document.querySelector('#lab-length')
 
@@ -11,13 +13,25 @@ const lecturesContainer = document.querySelector('.lectures-todo-container');
 const labContainer = document.querySelector('.lab-todo-container');
 
 
-const handleDeleteBtn = (lecId) => {
+const handleLecDeleteBtn = (lecId) => {
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-btn';
     deleteButton.innerText = 'X'
     deleteButton.addEventListener('click', () => {
-        axios.delete(`http://localhost4004/api/hw/${lecId}`)
-            .then(displayLec,)
+        axios.delete(`http://localhost:4004/api/lec/${lecId}`)
+            .then(displayLec)
+            .catch((err) => console.log(err))
+    })
+    return deleteButton;
+}
+
+const handleLabDeleteBtn = (id) => {
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'delete-btn';
+    deleteButton.innerText = 'X'
+    deleteButton.addEventListener('click', () => {
+        axios.delete(`http://localhost:4004/api/lab/${id}`)
+            .then(displayLab)
             .catch((err) => console.log(err))
     })
     return deleteButton;
@@ -27,9 +41,10 @@ const handleDeleteBtn = (lecId) => {
 
 const displayLec = ({ data }) => {
     data.forEach(({ lecId, lectureName, lectureLength }) => {
+
         const lecListItem = document.createElement('li');
         const lecText = document.createElement('span');
-        const deleteButton = handleDeleteBtn(lecId);
+        const deleteButton = handleLecDeleteBtn(lecId);
         lecText.innerText = `${lectureName} - ${lectureLength}hr.`;
         lecListItem.append(lecText, deleteButton);
         lecturesContainer.appendChild(lecListItem);
@@ -40,7 +55,7 @@ const displayLab = ({ data }) => {
     data.forEach(({ labId, labName, labLength }) => {
         const labListItem = document.createElement('li');
         const labText = document.createElement('span');
-        const deleteButton = handleDeleteBtn(labId);
+        const deleteButton = handleLabDeleteBtn(labId);
         labText.innerHTML = `${labName} - ${labLength}hr.`;
         labListItem.append(labText, deleteButton);
         labContainer.appendChild(labListItem);
@@ -51,10 +66,12 @@ const displayLab = ({ data }) => {
 //     lecturesContainer.innerHTML = 
 // }
 
-const lecReqBody = {
-    lectureName: lectureNameInput.value,
-    lectureLength: lectureLengthInput.value
-}
+
+// why doesn't this work?
+// const lecReqBody = {
+//     lectureName: lectureNameInput.value,
+//     lectureLength: lectureLengthInput.value
+// }
 
 
 
@@ -71,12 +88,27 @@ axios.get(`http://localhost:4004/api/lab`)
 
 
 
-lecBtn.addEventListener('click', (event) => {
+lecBtn.addEventListener('click', () => {
     event.preventDefault();
-    axios.post(`http://localhost:4004/api/lec`, lecReqBody)
+    axios.post(`http://localhost:4004/api/lec`, { lectureName: lectureNameInput.value, lectureLength: lectureLengthInput.value })
         .then(res => {
-            displayLec
+            lecturesContainer.innerHTML = '';
+            displayLec(res)
+            lectureNameInput.value = '';
+            lectureLengthInput.value = '';
         })
         .catch((err) => console.log(err))
+})
+
+labBtn.addEventListener('click', () => {
+    event.preventDefault();
+    axios.post('http://localhost:4004/api/lab', { labName: labNameInput.value, labLength: labLengthInput.value })
+        .then(res => {
+            labContainer.innerHTML = '';
+            displayLab(res);
+            labNameInput.value = '';
+            labLengthInput.value = '';
+        })
+        .catch((err) => console.log(err));
 })
 

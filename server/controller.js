@@ -32,5 +32,35 @@ const postLectures = (req, res) => {
     lecId++
 }
 
+const postLabs = (req, res) => {
+    const { labName, labLength } = req.body;
+    myLabs.push({ labId, labName: labName, labLength: labLength });
+    res.status(200).send(myLabs);
+    labId++
+}
 
-module.exports = { getLectures, getLabs, postLectures }
+const deleteLecture = (req, res) => {
+    const deleteLecId = myLectures.findIndex((lec) => {
+        if (lecId === +req.params) {
+            return true;
+        }
+    })
+    myLectures.splice(deleteLecId, 1)
+    res.status(200).send(myLectures)
+}
+
+const deleteLab = (req, res) => {
+    const deleteLabId = myLabs.findIndex((lab) => {
+        if (lab.labId === +req.params) {
+            return true;
+        }
+    })
+    myLabs.splice(deleteLabId, 1)
+    res.status(200).send(myLabs)
+}
+
+
+
+
+
+module.exports = { getLectures, getLabs, postLectures, postLabs, deleteLecture, deleteLab }
