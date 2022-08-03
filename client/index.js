@@ -18,6 +18,8 @@ const handleLecDeleteBtn = (lecId) => {
     deleteButton.className = 'delete-btn';
     deleteButton.innerText = 'X'
     deleteButton.addEventListener('click', () => {
+        console.log(lecId);
+        clearInputsLec();
         axios.delete(`http://localhost:4004/api/lec/${lecId}`)
             .then(displayLec)
             .catch((err) => console.log(err))
@@ -25,12 +27,13 @@ const handleLecDeleteBtn = (lecId) => {
     return deleteButton;
 }
 
-const handleLabDeleteBtn = (id) => {
+const handleLabDeleteBtn = (labId) => {
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-btn';
     deleteButton.innerText = 'X'
     deleteButton.addEventListener('click', () => {
-        axios.delete(`http://localhost:4004/api/lab/${id}`)
+        clearInputsLab();
+        axios.delete(`http://localhost:4004/api/lab/${labId}`)
             .then(displayLab)
             .catch((err) => console.log(err))
     })
@@ -62,9 +65,13 @@ const displayLab = ({ data }) => {
     })
 }
 
-// const clearInputs = () => {
-//     lecturesContainer.innerHTML = 
-// }
+const clearInputsLec = () => {
+    lecturesContainer.innerHTML = ``;
+}
+
+const clearInputsLab = () => {
+    labContainer.innerHTML = ``;
+}
 
 
 // why doesn't this work?

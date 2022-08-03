@@ -40,8 +40,9 @@ const postLabs = (req, res) => {
 }
 
 const deleteLecture = (req, res) => {
+    console.log(req.params);
     const deleteLecId = myLectures.findIndex((lec) => {
-        if (lecId === +req.params) {
+        if (lec.lecId === +req.params.lecId) {
             return true;
         }
     })
@@ -51,7 +52,7 @@ const deleteLecture = (req, res) => {
 
 const deleteLab = (req, res) => {
     const deleteLabId = myLabs.findIndex((lab) => {
-        if (lab.labId === +req.params) {
+        if (lab.labId === +req.params.labId) {
             return true;
         }
     })

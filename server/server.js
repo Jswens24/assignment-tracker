@@ -16,7 +16,7 @@ app.post('/api/lec', postLectures);
 app.post('/api/lab', postLabs);
 
 app.delete('/api/lec/:lecId', deleteLecture)
-app.delete('/api/lab/:id', deleteLab)
+app.delete('/api/lab/:labId', deleteLab)
 
 
 
